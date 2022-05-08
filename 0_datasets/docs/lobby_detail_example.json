@@ -1,0 +1,165 @@
+{
+    "source": "Deutscher Bundestag, Lobbyregister für die Interessenvertretung gegenüber dem Deutschen Bundestag und der Bundesregierung",
+    "sourceUrl": "https://www.lobbyregister.bundestag.de",
+    "searchUrl": "https://www.lobbyregister.bundestag.de/suche?q=viessmann&filter%5Blegalform%5D%5BLF_EV%5D=true&sort=REGISTRATION_DESC",
+    "searchDate": "2022-05-08T10:34:28.429Z",
+    "searchParameters": {
+        "queryString": "viessmann",
+        "sortOrder": "REGISTRATION_DESC",
+        "facets": [
+            {
+                "attribute": "legalform",
+                "values": [
+                    "LF_EV"
+                ]
+            }
+        ],
+        "numberRanges": []
+    },
+    "resultCount": 1,
+    "results": [
+        {
+            "id": 1673,
+            "registerNumber": "R000284",
+            "detailsPageUrl": "https://www.lobbyregister.bundestag.de/suche/R000284/1673",
+            "name": "Institut für Klimaschutz, Energie und Mobilität e.V. (IKEM)",
+            "firstPublicationDate": "2022-02-03T14:45:38.609Z",
+            "activeLobbyist": true,
+            "codexViolation": false,
+            "updateMissing": false,
+            "refusedAnything": false,
+            "activity": {
+                "code": "ACT_RESEARCH_FACILITY",
+                "de": "Denkfabrik, Forschungseinrichtung oder Hochschule",
+                "en": "Think tank, research institution or university"
+            },
+            "fieldsOfInterest": [
+                {
+                    "code": "FOI_ENERGY",
+                    "de": "Energie",
+                    "en": "Energy"
+                },
+                {
+                    "code": "FOI_ENERGY|FOI_ENERGY_NET",
+                    "de": "Energienetze",
+                    "en": "Energy networks"
+                },
+                {
+                    "code": "FOI_ENERGY|FOI_ENERGY_OVERALL",
+                    "de": "Allgemeine Energiepolitik",
+                    "en": "Energy policy in general"
+                },
+                {
+                    "code": "FOI_ENERGY|FOI_ENERGY_RENEWABLE",
+                    "de": "Erneuerbare Energien",
+                    "en": "Renewable energy"
+                },
+                {
+                    "code": "FOI_ENVIRONMENT",
+                    "de": "Umwelt",
+                    "en": "Environment"
+                },
+                {
+                    "code": "FOI_ENVIRONMENT|FOI_ENVIRONMENT_CLIMATE",
+                    "de": "Klimaschutz",
+                    "en": "Climate protection"
+                },
+                {
+                    "code": "FOI_ENVIRONMENT|FOI_ENVIRONMENT_SUSTAINABILITY",
+                    "de": "Nachhaltigkeit und Ressourcenschutz",
+                    "en": "Sustainability and resource protection"
+                },
+                {
+                    "code": "FOI_EUROPEAN_UNION",
+                    "de": "Europapolitik und Europäische Union",
+                    "en": "European politics and the EU"
+                },
+                {
+                    "code": "FOI_EUROPEAN_UNION|FOI_EU_LAWS",
+                    "de": "EU-Gesetzgebung",
+                    "en": "EU legislation"
+                },
+                {
+                    "code": "FOI_LAW",
+                    "de": "Recht",
+                    "en": "Law"
+                },
+                {
+                    "code": "FOI_LAW|FOI_LAW_OTHER",
+                    "de": "Sonstiges im Bereich „Recht“",
+                    "en": "Other in the field of “Law”"
+                },
+                {
+                    "code": "FOI_REGINAL_PLANNING",
+                    "de": "Raumordnung, Bau- und Wohnungswesen",
+                    "en": "Spatial planning, construction and housing"
+                },
+                {
+                    "code": "FOI_REGINAL_PLANNING|FOI_RP_CITY",
+                    "de": "Stadtentwicklung",
+                    "en": "Urban development"
+                },
+                {
+                    "code": "FOI_REGINAL_PLANNING|FOI_RP_COUNTRYSIDE",
+                    "de": "Ländlicher Raum",
+                    "en": "Rural area"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION",
+                    "de": "Verkehr",
+                    "en": "Transportation"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_AEROSPACE",
+                    "de": "Luft- und Raumfahrt",
+                    "en": "Aerospace"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_AUTOMOBILE",
+                    "de": "Straßenverkehr",
+                    "en": "Road traffic"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_FREIGHT_TRANSPORT",
+                    "de": "Güterverkehr",
+                    "en": "Freight transportation"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_INDRASTRUCTURE",
+                    "de": "Verkehrsinfrastruktur",
+                    "en": "Infrastructure"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_POLICY",
+                    "de": "Verkehrspolitik",
+                    "en": "Transport policy"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_PUBLIC_TRANSPORT",
+                    "de": "Personenverkehr",
+                    "en": "Public transportation"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_RAIL",
+                    "de": "Schienenverkehr",
+                    "en": "Rail transportation"
+                },
+                {
+                    "code": "FOI_TRANSPORTATION|FOI_TRANSPORTATION_SHIPPING",
+                    "de": "Schifffahrt",
+                    "en": "Shipping"
+                }
+            ],
+            "financialExpensesEuro": {
+                "from": 1,
+                "to": 10000,
+                "fiscalYearStart": "01/21",
+                "fiscalYearEnd": "12/21"
+            },
+            "employeeCount": {
+                "from": 1,
+                "to": 10
+            }
+        }
+    ]
+}

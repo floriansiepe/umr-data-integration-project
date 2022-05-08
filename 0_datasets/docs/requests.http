@@ -1,0 +1,8 @@
+###
+Simple search for a query string
+
+GET	https://www.lobbyregister.bundestag.de/sucheJson?q=viessmann&sort=REGISTRATION_DESC
+
+###
+
+GET https://www.lobbyregister.bundestag.de/sucheJson?q=viessmann&filter%5Blegalform%5D%5BLF_EV%5D=true&sort=REGISTRATION_DESC

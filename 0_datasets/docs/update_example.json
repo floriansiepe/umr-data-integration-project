@@ -1,0 +1,19 @@
+{
+    "_index": "corporate-events",
+    "_type": "_doc",
+    "_id": "rp_55",
+    "_score": 1,
+    "_ignored": [
+        "information.keyword"
+    ],
+    "_source": {
+        "id": "rp_55",
+        "rb_id": 55,
+        "state": "rp",
+        "reference_id": "HRB 6635",
+        "event_date": "07.07.2005",
+        "event_type": "update",
+        "status": "STATUS_ACTIVE",
+        "information": "nova ratio Aktiengesellschaft, Hundsdorf (Hauptstr. 3-5, 56235 Hundsdorf). Durch Beschluss der Hauptversammlung vom 16.03.2005 sind die Aktien der Gesellschaft in auf den Namen lautende vinkulierte Stückaktien umgewandelt worden. Ferner hat die Hauptversammlung vom 16.03.2005 die Erhöhung des Grundkapitals um 87.720,00 EUR beschlossen.Die am 16.03.2005 beschlossene Erhöhung des Grundkapitals um 87.720,00 EUR ist durchgeführt. Die Hauptversammlung vom 16.03.2005 hat die bedingte Erhöhung des Grundkapitals um einen Betrag bis zu 68.196,00 EURO beschlossen. Zuletzt hat die Hauptversammlung vom 16.03.2005 die Neufassung der Satzung beschlossen, insbesondere von § 3 (Höhe und Einteilung des Grundkapitals) und von § 8 ( gesetzliche Vertretung). 613.762,00 EUR. Bestellt als Vorstand: Wagner, Gerhard, Koblenz, *24.01.1963; Wiedenhues, Dirk, Bad Ems, *23.05.1965, jeweils vertretungsberechtigt gemeinsam mit einem anderen Vorstandsmitglied mit der Befugnis im Namen der Gesellschaft mit sich im eigenen Namen oder als Vertreter eines Dritten Rechtsgeschäfte abzuschließen. Als nicht eingetragen wird bekanntgemacht: Der Erhöhungsbetrag des Grundkapitals ist eingeteilt in 87720 stimmberechtigte Vorzugsaktien Serie (A) als Stückaktien zu je 1,00 EUR , die alle auf den Namen lauten.Die neuen Aktien sind zum Nennwert ausgegeben.Die bedingte Kapitalerhöhung erfolgt zur Gewährung von Umtauschrechten an die Inhaber von Wandelschuldverschreibungen, und zwar in der Art, dass der Vorstand ermächtigt wird, mit Zustimmung des Aufsichtsrates bis zum 31.08.2005 auf den Namen lautende Wandelschuldverschreibungen bis zum Gesamtnennbetrag von EUR 500.000,00 auszugeben. Die Wandelschuldverschreibungen sind in insgesamt 68.196 Teilschuldverschreibungen mit einem Nennwert von je EUR 7,331808 aufzuteilen. Die Teilschuldverschreibungenn können gemäß dem durch Beschluss der Hauptversammlung von 16.03.2005 gefaßten Anleihebedingungen in je eine neue Vorzugsaktie Serie B umgetauscht werden. Der Umtausch der Wandelschuldverschreibungen in Nennbetrag von EUR 7,331808 in eine Vorzugsaktie Serie B der Gesellschaft mit einem rechnerischen Nennbetrag von EUR 1,00 erfolgt im Verhältnis 1:1. Wegen der Anleihebedingungen wird auf die bei Gericht eingereichten Urkunden verwiesen. Die mit der Anmeldung eingereichten Schriftstücke können bei dem Gericht eingesehen werden."
+    }
+}
