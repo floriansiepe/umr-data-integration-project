@@ -32,4 +32,7 @@ public class DataService {
             return Person.of(record.get("org").asNode());
         });
     }
+
+    public void createDb() {
+    }
 }
