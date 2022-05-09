@@ -2,6 +2,14 @@
 
 ## Building
 
+### Running in dev mode
+```shell script
+./mvnw compile quarkus:dev -Dquarkus.args="lobby-data-2022-05-08.json corporate-events-dump.json"
+```
+
+Opening the Neo4J webui. If not specified otherwise in the console output open your browser on [http://localhost:7474](http://localhost:7474).
+
+### Building
 ```shell script
 ./mvnw clean package -DskipTests
 ```

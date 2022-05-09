@@ -2,17 +2,18 @@ package florian.siepe;
 
 import florian.siepe.entity.dto.lobby.LobbyRegisterSearchResponse;
 import florian.siepe.entity.dto.trading.TradingRegisterEntry;
+import florian.siepe.io.JsonLineTextReader;
+import florian.siepe.io.JsonTextReader;
+import org.slf4j.Logger;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
-import javax.json.bind.JsonbBuilder;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.LinkedList;
+import java.io.File;
+
 
 @Command(name = "integrate", mixinStandardHelpOptions = true)
 public class IntegrationCommand implements Runnable {
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(IntegrationCommand.class);
 
     @Parameters(paramLabel = "<lobbyRegister>", description = "The file dump of the lobby register")
     File lobbyRegister;
@@ -21,32 +22,13 @@ public class IntegrationCommand implements Runnable {
 
     @Override
     public void run() {
-        final var jsonb = JsonbBuilder.create();
-        try {
-            final var lobbyEntryList = Files.readAllLines(lobbyRegister.toPath(), StandardCharsets.UTF_8);
-            if (!lobbyEntryList.isEmpty()) {
-                final var lobbyRegisterSearchResponse = jsonb.fromJson(lobbyEntryList.get(0), LobbyRegisterSearchResponse.class);
-                System.out.println(lobbyRegisterSearchResponse.results.size());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        final var tradingRegisterReader = new JsonLineTextReader<>(TradingRegisterEntry.class);
+        final var tradingRegisterEntries = tradingRegisterReader.read(tradingRegister);
 
-        final var tradingRegisterEntries = new LinkedList<TradingRegisterEntry>();
-        try (BufferedReader br = new BufferedReader(new FileReader(tradingRegister))) {
-            for (String line; (line = br.readLine()) != null; ) {
-                // process the line.
-                final var tradingRegisterEntry = jsonb.fromJson(line, TradingRegisterEntry.class);
-                tradingRegisterEntries.add(tradingRegisterEntry);
-            }
-            // line is not visible here.
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        final var lobbyRegisterReader = new JsonTextReader<>(LobbyRegisterSearchResponse.class);
+        final var lobbyRegisterData = lobbyRegisterReader.read(lobbyRegister);
 
-        System.out.println(tradingRegisterEntries.size());
-
+        logger.info("Got {} entries from the lobby register", lobbyRegisterData.results.size());
+        logger.info("Got {} entries from the trading register", tradingRegisterEntries.size());
     }
 }
