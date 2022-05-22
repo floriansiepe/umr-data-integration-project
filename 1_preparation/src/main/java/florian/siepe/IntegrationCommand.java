@@ -1,7 +1,7 @@
 package florian.siepe;
 
 import florian.siepe.control.DataService;
-import florian.siepe.entity.dto.lobby.LobbyRegisterSearchResponse;
+import florian.siepe.entity.dto.lobby.search.LobbyRegisterSearchResponse;
 import florian.siepe.entity.dto.trading.TradingRegisterEntry;
 import florian.siepe.io.JsonLineTextReader;
 import florian.siepe.io.JsonTextReader;
@@ -38,6 +38,7 @@ public class IntegrationCommand implements Runnable {
         final var lobbyRegisterReader = new JsonTextReader<>(LobbyRegisterSearchResponse.class);
         final var lobbyRegisterData = lobbyRegisterReader.read(lobbyRegister);
 
+        dataService.insertLobbyRegisterData(lobbyRegisterData);
         logger.info("Got {} entries from the lobby register", lobbyRegisterData.results.size());
         logger.info("Got {} entries from the trading register", tradingRegisterEntries.size());
 

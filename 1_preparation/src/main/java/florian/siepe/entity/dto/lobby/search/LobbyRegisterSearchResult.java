@@ -1,4 +1,4 @@
-package florian.siepe.entity.dto.lobby;
+package florian.siepe.entity.dto.lobby.search;
 
 import javax.json.bind.annotation.JsonbDateFormat;
 import java.time.LocalDateTime;

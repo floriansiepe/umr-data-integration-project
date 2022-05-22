@@ -11,8 +11,8 @@ public class Address {
     public String city;
     public String country;
 
-    public static Address of(final Node org) {
-        return of(org.get("street").asString(), org.get("houseNumber").asString(), org.get("zip").asInt(), org.get("city").asString(), org.get("country").asString(), org.get("id").asLong());
+    public static Address of(final Node node) {
+        return of(node.get("street").asString(), node.get("houseNumber").asString(), node.get("zip").asInt(), node.get("city").asString(), node.get("country").asString(), node.id());
     }
 
     public static Address of(final String street, final String houseNumber, final Integer zip, final String city, final String country, final Long id) {

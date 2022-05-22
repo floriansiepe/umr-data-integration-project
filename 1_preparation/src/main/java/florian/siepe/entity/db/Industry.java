@@ -8,8 +8,8 @@ public class Industry {
     public String type;
     public Long id;
 
-    public static Industry of(final Node org) {
-        return of(org.get("name").asString(), org.get("type").asString(), org.get("id").asLong());
+    public static Industry of(final Node node) {
+        return of(node.get("name").asString(), node.get("type").asString(), node.id());
     }
 
     public static Industry of(final String name, final String type, final Long id) {
@@ -18,5 +18,9 @@ public class Industry {
         industry.type = type;
         industry.id = id;
         return industry;
+    }
+
+    public static Industry of(final String name, final String type) {
+        return of(name, type, null);
     }
 }
