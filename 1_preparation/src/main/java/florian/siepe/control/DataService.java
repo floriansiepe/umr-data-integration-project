@@ -121,6 +121,26 @@ public class DataService {
         });
     }
 
+    private IsManager persistIsManager(final IsManager isManager, final String matchingType) {
+        final var session = driver.session();
+        return session.writeTransaction(transaction -> {
+            final var params = new HashMap<String, Object>();
+            params.put("from", isManager.from);
+            params.put("to", isManager.to);
+            params.put("id1", isManager.id1);
+            params.put("id2", isManager.id2);
+            final var record = transaction.run("MATCH\n" +
+                            "  (a:Organisation),\n" +
+                            "  (b:" + matchingType + ")\n" +
+                            "WHERE ID(a) = $id1 AND ID(b) = $id2\n" +
+                            "CREATE (a)<-[isManager:IsManager {from: $from, to: $to}]-(b)\n" +
+                            "RETURN isManager",
+                    params);
+
+            return null;
+        });
+    }
+
     public void createDb() {
 
     }
