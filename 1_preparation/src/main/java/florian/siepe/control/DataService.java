@@ -63,7 +63,6 @@ public class DataService {
 
             return Industry.of(record.get("branch").asNode());
         });
-
     }
 
     private Finances persistFinances(final Finances finances, final String matchingType) {
@@ -83,6 +82,42 @@ public class DataService {
                     params);
 
             return null;// Finances.of(record.get("finances").asRelationship());
+        });
+    }
+
+    public Address persistAddress(Address address) {
+        final var session = driver.session();
+        return session.writeTransaction(transaction -> {
+            final var params = new HashMap<String, Object>();
+            params.put("street", address.street);
+            params.put("houseNumber", address.houseNumber);
+            params.put("zip", address.zip);
+            params.put("city", address.city);
+            params.put("country", address.country);
+            final var record = transaction.run("CREATE (branch:Branch {street: $street, houseNumber: $houseNumber, zip: $zip, city: $city, country: $country}) RETURN branch",
+                    params).single();
+
+            return Address.of(record.get("branch").asNode());
+        });
+    }
+
+    private Locates persistLocates(final Locates locates, final String matchingType) {
+        final var session = driver.session();
+        return session.writeTransaction(transaction -> {
+            final var params = new HashMap<String, Object>();
+            params.put("from", locates.from);
+            params.put("to", locates.to);
+            params.put("id1", locates.id1);
+            params.put("id2", locates.id2);
+            final var record = transaction.run("MATCH\n" +
+                            "  (a:Organisation),\n" +
+                            "  (b:" + matchingType + ")\n" +
+                            "WHERE ID(a) = $id1 AND ID(b) = $id2\n" +
+                            "CREATE (a)<-[locates:Locates {from: $from, to: $to}]-(b)\n" +
+                            "RETURN locates",
+                    params);
+
+            return null;
         });
     }
 

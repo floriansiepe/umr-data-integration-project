@@ -1,6 +1,7 @@
 package florian.siepe.entity.db;
 
 import org.neo4j.driver.types.Node;
+import org.neo4j.driver.types.Relationship;
 
 import java.time.LocalDate;
 
@@ -10,8 +11,8 @@ public class Locates {
     public Long id1;
     public Long id2;
 
-    public static Locates of(final Node org) {
-        return of(org.get("id1").asLong(), org.get("id2").asLong(), org.get("from").asLocalDate(), org.get("to").asLocalDate());
+    public static Locates of(final Relationship relation) {
+        return of(relation.get("id1").asLong(), relation.get("id2").asLong(), relation.get("from").asLocalDate(), relation.get("to").asLocalDate());
     }
 
     public static Locates of(final Long id1, final Long id2, final LocalDate from, final LocalDate to) {
