@@ -6,6 +6,7 @@ import florian.siepe.entity.dto.lobby.detail.LobbyRegisterDetailDonator;
 import florian.siepe.entity.dto.lobby.search.LobbyRegisterSearchResponse;
 import florian.siepe.entity.dto.lobby.search.LobbyRegisterSearchResult;
 import florian.siepe.entity.dto.lobby.search.OrgansationCategory;
+import florian.siepe.entity.dto.trading.TradingRegisterEntry;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.neo4j.driver.Driver;
 import org.slf4j.Logger;
@@ -13,11 +14,16 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class DataService {
+    private static final Pattern NEW_MANAGER = Pattern.compile("Bestellt als Geschäftsführer: (.*?(\\*\\d{2}\\.\\d{2}\\.\\d{4}))[,|.]");
+    private static final Pattern NO_MANAGER_ANYMORE = Pattern.compile("Nicht mehr Geschäftsführer: (.*?(\\*\\d{2}\\.\\d{2}\\.\\d{4}))[,|.]");
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
     @RestClient
     @Inject
@@ -167,4 +173,62 @@ public class DataService {
         }
     }
 
+
+    public void insertTradingRegisterData(final List<TradingRegisterEntry> tradingRegisterEntries) {
+        for (final TradingRegisterEntry tradingRegisterEntry : tradingRegisterEntries) {
+            final var source = preprocessText(tradingRegisterEntry.source.information);
+            final var split = source.split("\\.\\s");
+            final var org = split[0];
+            final var orgSplit = org.split(",");
+            final var orgName = orgSplit[0];
+            final var orgAddress = orgSplit.length > 1 ? orgSplit[1] : null;
+            final var newManagers = NEW_MANAGER.matcher(source);
+
+            System.out.println("###");
+            System.out.println(orgName);
+            System.out.println(orgAddress);
+            if (newManagers.find()) {
+                String theGroup = newManagers.group(1);
+                final var newManagersData = extractPersons(theGroup);
+                System.out.println(newManagersData);
+            }
+
+            final var noManagers = NO_MANAGER_ANYMORE.matcher(source);
+            if (noManagers.find()) {
+                String theGroup = noManagers.group(1);
+                final var oldManagersData = extractPersons(theGroup);
+                System.out.println(oldManagersData);
+            }
+        }
+
+    }
+
+    private String preprocessText(final String info) {
+        return info
+                .replaceAll("Prof. ", "Prof.")
+                .replaceAll("Dr. ", "Dr.")
+                .replaceAll("e. K. ", "e.K.")
+                .replaceAll("Str. ", "Straße");
+    }
+
+    private List<Object[]> extractPersons(String str) {
+        return Arrays.stream(str.split(";")).map(s -> {
+            final var split = s.split(",");
+            // Has academic title
+            if (split.length == 5) {
+                var firstName = split[1];
+                var lastName = split[0];
+                var city = split[3];
+                var birthday = split[4];
+                return new Object[]{Person.of(firstName + " " + lastName), city};
+            } else {
+                var firstName = split[1];
+                var lastName = split[0];
+                var city = split[2];
+                var birthday = split[3];
+                return new Object[]{Person.of(firstName + " " + lastName), city};
+            }
+
+        }).toList();
+    }
 }

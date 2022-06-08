@@ -20,4 +20,12 @@ public class Person {
     public static Person of(final String name) {
         return of(name, null);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -20,9 +20,9 @@ public class IntegrationCommand implements Runnable {
 
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(IntegrationCommand.class);
 
-    @Parameters(paramLabel = "<lobbyRegister>", description = "The file dump of the lobby register")
+    @Parameters(paramLabel = "<lobbyRegister>", description = "The file dump of the lobby register", defaultValue = "lobby-data-2022-05-08.json")
     File lobbyRegister;
-    @Parameters(paramLabel = "<tradingRegister>", description = "The file dump of the trading register")
+    @Parameters(paramLabel = "<tradingRegister>", description = "The file dump of the trading register", defaultValue = "corporate-events-dump.json")
     File tradingRegister;
 
     public IntegrationCommand(final DataService dataService) {
@@ -38,7 +38,8 @@ public class IntegrationCommand implements Runnable {
         final var lobbyRegisterReader = new JsonTextReader<>(LobbyRegisterSearchResponse.class);
         final var lobbyRegisterData = lobbyRegisterReader.read(lobbyRegister);
 
-        dataService.insertLobbyRegisterData(lobbyRegisterData);
+        //dataService.insertLobbyRegisterData(lobbyRegisterData);
+        dataService.insertTradingRegisterData(tradingRegisterEntries);
         logger.info("Got {} entries from the lobby register", lobbyRegisterData.results.size());
         logger.info("Got {} entries from the trading register", tradingRegisterEntries.size());
 
