@@ -225,10 +225,22 @@ public class DataService {
 
     private String preprocessText(final String info) {
         return info
-                .replaceAll("Prof. ", "Prof.")
-                .replaceAll("Dr. ", "Dr.")
-                .replaceAll("e. K. ", "e.K.")
-                .replaceAll("Str. ", "Straße");
+                .replaceAll("Prof. ", "Prof ")
+                .replaceAll("Dr. ", "Dr ")
+                .replaceAll("e. K. ", "eK")
+                .replaceAll("Str. ", "Strasse")
+                .replaceAll("Str", "Strasse")
+                .replaceAll("Str .", "Strasse")
+                .replaceAll("Ä", "Ae")
+                .replaceAll("ä", "ae")
+                .replaceAll("Ü", "Ue")
+                .replaceAll("ü", "ue")
+                .replaceAll("Ö", "Oe")
+                .replaceAll("ö", "oe")
+                .replaceAll("ß", "ss")
+                .replaceAll("e. V.", "eV")
+                .replaceAll("e.V.", "eV")
+                ;
     }
 
     private List<Object[]> extractPersons(String str) {
