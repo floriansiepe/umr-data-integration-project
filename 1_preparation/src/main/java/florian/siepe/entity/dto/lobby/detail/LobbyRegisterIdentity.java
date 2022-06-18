@@ -1,7 +1,7 @@
 package florian.siepe.entity.dto.lobby.detail;
 
 import javax.json.bind.annotation.JsonbDateFormat;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class LobbyRegisterIdentity {
@@ -16,6 +16,6 @@ public class LobbyRegisterIdentity {
     public List<LobbyRegisterDetailEmployee> namedEmployees;
     public Long members;
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
-    public LocalDateTime membersCountDate;
+    public ZonedDateTime membersCountDate;
     public List<String> membershipEntries;
 }

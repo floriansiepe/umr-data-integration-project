@@ -38,7 +38,7 @@ public class IntegrationCommand implements Runnable {
         final var lobbyRegisterReader = new JsonTextReader<>(LobbyRegisterSearchResponse.class);
         final var lobbyRegisterData = lobbyRegisterReader.read(lobbyRegister);
 
-        //dataService.insertLobbyRegisterData(lobbyRegisterData);
+        dataService.insertLobbyRegisterData(lobbyRegisterData);
         dataService.insertTradingRegisterData(tradingRegisterEntries);
         logger.info("Got {} entries from the lobby register", lobbyRegisterData.results.size());
         logger.info("Got {} entries from the trading register", tradingRegisterEntries.size());
