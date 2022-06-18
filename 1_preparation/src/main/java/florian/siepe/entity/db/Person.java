@@ -13,6 +13,7 @@ public class Person {
 
     public static Person of(final String birthday, final String name, final Long id) {
         final var person = new Person();
+        person.birthday = birthday;
         person.id = id;
         person.name = name;
         return person;
@@ -27,6 +28,7 @@ public class Person {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", birthday='" + birthday + '\'' +
                 '}';
     }
 }

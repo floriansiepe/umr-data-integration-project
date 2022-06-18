@@ -23,13 +23,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class DataService {
-    private static final Pattern NEW_MANAGER = Pattern.compile("Bestellt als Geschäftsführer: (.*?(\\*\\d{2}\\.\\d{2}\\.\\d{4}))[,|.]");
-    private static final Pattern NO_MANAGER_ANYMORE = Pattern.compile("Nicht mehr Geschäftsführer: (.*?(\\*\\d{2}\\.\\d{2}\\.\\d{4}))[,|.]");
+    private static final Pattern NEW_MANAGER = Pattern.compile("Bestellt als Geschaeftsfuehrer: (.*?(\\*\\d{2}\\.\\d{2}\\.\\d{4}))[,|.]");
+    private static final Pattern NO_MANAGER_ANYMORE = Pattern.compile("Nicht mehr Geschaeftsfuehrer: (.*?(\\*\\d{2}\\.\\d{2}\\.\\d{4}))[,|.]");
     private static final Pattern ADDRESS = Pattern.compile("\\(([a-zA-Z\\d,\\s-\\.]+)\\)");
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
     private static final Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(false));
@@ -61,8 +60,11 @@ public class DataService {
     public Person persistPerson(Person person) {
         final var session = driver.session();
         return session.writeTransaction(transaction -> {
-            final var record = transaction.run("CREATE (p:Person {name: $name}) RETURN p",
-                    Map.of("name", person.name)).single();
+            final var params = new HashMap<String, Object>();
+            params.put("name", person.name);
+            params.put("birthday", person.birthday);
+            final var record = transaction.run("CREATE (p:Person {name: $name, birthday: $birthday}) RETURN p",
+                    params).single();
 
             return Person.of(record.get("p").asNode());
         });
@@ -176,8 +178,11 @@ public class DataService {
             LobbyRegisterDetailResponse details;
             try {
                 details = lobbyRegisterClient.getDetails(registerEntry, registerEntryId);
-                writeToFile(details, registerEntry, registerEntryId);
-            } catch (RuntimeException e) {
+                if (details == null) {
+                    continue;
+                }
+                //writeToFile(details, registerEntry, registerEntryId);
+            } catch (Exception e) {
                 logger.warn("Error while fetching {}", registerEntryId, e);
                 continue;
             }
@@ -274,6 +279,7 @@ public class DataService {
             if (newManagers.find()) {
                 String theGroup = newManagers.group(1);
                 newManagersData = extractPersons(theGroup);
+                //System.out.println(newManagersData);
             }
 
             final var noManagers = NO_MANAGER_ANYMORE.matcher(source);
