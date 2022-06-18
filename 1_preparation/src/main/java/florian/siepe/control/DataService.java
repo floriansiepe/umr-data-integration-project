@@ -103,6 +103,24 @@ public class DataService {
         });
     }
 
+    private void persistMemberOf(final MemberOf memberOf) {
+        final var session = driver.session();
+        session.writeTransaction(transaction -> {
+            final var params = new HashMap<String, Object>();
+            params.put("id1", memberOf.id1);
+            params.put("id2", memberOf.id2);
+            final var record = transaction.run("""
+                            MATCH
+                              (a:Organisation),
+                              (b:Branch) WHERE ID(a) = $id1 AND ID(b) = $id2
+                            CREATE (a)-[memberOf:MemberOf]->(b)
+                            RETURN memberOf""",
+                    params);
+
+            return null;
+        });
+    }
+
     public Address persistAddress(Address address) {
         final var session = driver.session();
         return session.writeTransaction(transaction -> {
@@ -195,7 +213,8 @@ public class DataService {
             for (final OrgansationCategory fieldOfInterest : entry.fieldsOfInterest) {
                 final var industry = Industry.of(fieldOfInterest.de, fieldOfInterest.code);
                 final var persistedIndustry = persistIndustry(industry);
-                MemberOf.of(persistedOrg.id, persistedIndustry.id);
+                final var memberOf = MemberOf.of(persistedOrg.id, persistedIndustry.id);
+                persistMemberOf(memberOf);
             }
 
             for (final LobbyRegisterDetailDonator donator : entry.donators) {
@@ -214,6 +233,7 @@ public class DataService {
             }
         }
     }
+
 
     private void writeToFile(final LobbyRegisterDetailResponse details, final String registerEntry, final String registerEntryId) {
         try (FileWriter myWriter = new FileWriter("registerEntries/" + String.format("%s-%s", registerEntry, registerEntryId));) {
