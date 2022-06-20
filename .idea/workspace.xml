@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cb86553-5c2d-4a22-ab69-cb3d86549974" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/DataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/DataService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/NameClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/NameClassifier.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,6 +108,7 @@
       <workItem from="1654795297945" duration="158000" />
       <workItem from="1655131244756" duration="157000" />
       <workItem from="1655568680000" duration="4352000" />
+      <workItem from="1655729728543" duration="3134000" />
     </task>
     <servers />
   </component>
