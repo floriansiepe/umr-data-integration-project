@@ -253,6 +253,8 @@ public class DataService {
             final var source = preprocessText(tradingRegisterEntry.source.information);
             final var split = source.split(",");
             final var org = split[0];
+            //TODO remove system.out.print
+            System.out.println(org);
             final var organisation = Organisation.of(org, false);
 
             final var addressMatcher = ADDRESS.matcher(source);

@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cb86553-5c2d-4a22-ab69-cb3d86549974" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/1_preparation/corporate-events-dump.json" beforeDir="false" afterPath="$PROJECT_DIR$/1_preparation/corporate-events-dump.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/DataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/DataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/integration/JaroWinkler.java" beforeDir="false" afterPath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/integration/JaroWinkler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/NameClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/NameClassifier.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +108,8 @@
       <updated>1654783027871</updated>
       <workItem from="1654783030786" duration="3271000" />
       <workItem from="1654795297945" duration="158000" />
+      <workItem from="1655131244756" duration="157000" />
+      <workItem from="1655568680000" duration="4352000" />
     </task>
     <servers />
   </component>
@@ -130,7 +132,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/1_preparation/src/main/java/florian/siepe/control/DataService.java</url>
-          <line>265</line>
+          <line>397</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
