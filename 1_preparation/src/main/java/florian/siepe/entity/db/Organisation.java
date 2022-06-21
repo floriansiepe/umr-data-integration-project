@@ -2,7 +2,7 @@ package florian.siepe.entity.db;
 
 import org.neo4j.driver.types.Node;
 
-public class Organisation {
+public class Organisation implements Identifiable {
     public Long id;
     public String name;
     public Boolean isLobby;
@@ -21,5 +21,10 @@ public class Organisation {
         org.isLobby = isLobby;
         org.id = id;
         return org;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 }

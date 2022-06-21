@@ -4,8 +4,6 @@ import florian.siepe.clients.LobbyRegisterClient;
 import florian.siepe.entity.db.*;
 import florian.siepe.entity.dto.lobby.detail.LobbyRegisterDetailDonator;
 import florian.siepe.entity.dto.lobby.detail.LobbyRegisterDetailResponse;
-import florian.siepe.entity.dto.lobby.search.LobbyRegisterSearchResponse;
-import florian.siepe.entity.dto.lobby.search.LobbyRegisterSearchResult;
 import florian.siepe.entity.dto.lobby.search.OrgansationCategory;
 import florian.siepe.entity.dto.trading.TradingEntryStatus;
 import florian.siepe.entity.dto.trading.TradingRegisterEntry;
@@ -189,34 +187,20 @@ public class DataService {
 
     }
 
-    public void insertLobbyRegisterData(final LobbyRegisterSearchResponse lobbyRegisterData) {
+    public void insertLobbyRegisterData(final List<LobbyRegisterDetailResponse> lobbyRegisterData) {
         int counter = 0;
-        for (final LobbyRegisterSearchResult orgFromLobby : lobbyRegisterData.results) {
+        for (final var details : lobbyRegisterData) {
             //TODO: Just for development purpose
             if (counter >= 100) {
-                break;
+                //break;
             }
             counter++;
 
-            final var split = orgFromLobby.detailsPageUrl.split("/");
-            final var registerEntry = split[split.length - 2];
-            final var registerEntryId = split[split.length - 1];
-            LobbyRegisterDetailResponse details;
-            try {
-                details = lobbyRegisterClient.getDetails(registerEntry, registerEntryId);
-                if (details == null) {
-                    continue;
-                }
-                //writeToFile(details, registerEntry, registerEntryId);
-            } catch (Exception e) {
-                logger.warn("Error while fetching {}", registerEntryId, e);
-                continue;
-            }
             logger.info("Processing lobby register entry {}", details.searchUrl);
 
             final var entry = details.registerEntryDetail;
 
-            final var org = Organisation.of(orgFromLobby.name, true);
+            final var org = Organisation.of(details.registerEntryDetail.lobbyistIdentity.name, true);
             final var persistedOrg = persistOrganisation(org);
             for (final OrgansationCategory fieldOfInterest : entry.fieldsOfInterest) {
                 final var industry = Industry.of(fieldOfInterest.de, fieldOfInterest.code);
@@ -403,12 +387,12 @@ public class DataService {
         }).toList();
     }
 
-    public void mergeVertices(final HashSet<Set<Person>> cluster) {
+    public <T extends Identifiable> void mergeVertices(final Set<Set<T>> cluster) {
         logger.info("Merge {} clusters", cluster.size());
-        for (final Set<Person> people : cluster) {
+        for (final Set<T> group : cluster) {
             final var session = driver.session();
-            final var ids = people.stream().map(person -> person.id).toList();
-            logger.debug("Merge cluster of size {}", people.size());
+            final var ids = group.stream().map(T::getId).toList();
+            logger.debug("Merge cluster of size {}", group.size());
 
             session.writeTransaction(transaction -> transaction.run("MATCH (n) " +
                     "WHERE ID(n) in $ids " +

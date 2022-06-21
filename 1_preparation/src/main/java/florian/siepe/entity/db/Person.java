@@ -2,10 +2,15 @@ package florian.siepe.entity.db;
 
 import org.neo4j.driver.types.Node;
 
-public class Person {
+public class Person implements Identifiable {
     public Long id;
     public String name;
     public String birthday;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     public static Person of(final Node node) {
         return of(node.get("birthday").asString(), node.get("name").asString(), node.id());

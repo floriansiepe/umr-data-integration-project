@@ -2,7 +2,7 @@ package florian.siepe.entity.db;
 
 import org.neo4j.driver.types.Node;
 
-public class Address {
+public class Address implements Identifiable {
 
     public Long id;
     public String street;
@@ -46,5 +46,10 @@ public class Address {
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 }
