@@ -20,9 +20,7 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.io.FileWriter;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @ApplicationScoped
@@ -43,6 +41,16 @@ public class DataService {
 
     @Inject
     Driver driver;
+
+    public List<Organisation> getOrganizations() {
+        final var session = driver.session();
+        return session.readTransaction(transaction -> transaction.run("MATCH (org:Organisation) RETURN org").stream().map(record -> Organisation.of(record.get("org").asNode())).toList());
+    }
+
+    public List<Person> getPersons() {
+        final var session = driver.session();
+        return session.readTransaction(transaction -> transaction.run("MATCH (person:Person) RETURN person").stream().map(record -> Person.of(record.get("person").asNode())).toList());
+    }
 
     public Organisation persistOrganisation(Organisation org) {
         final var session = driver.session();
@@ -185,8 +193,8 @@ public class DataService {
         int counter = 0;
         for (final LobbyRegisterSearchResult orgFromLobby : lobbyRegisterData.results) {
             //TODO: Just for development purpose
-            if (counter >= 10) {
-                //    break;
+            if (counter >= 100) {
+                break;
             }
             counter++;
 
@@ -253,8 +261,7 @@ public class DataService {
             final var source = preprocessText(tradingRegisterEntry.source.information);
             final var split = source.split(",");
             final var org = split[0];
-            //TODO remove system.out.print
-            System.out.println(org);
+            //System.out.println(org);
             final var organisation = Organisation.of(org, false);
 
             final var addressMatcher = ADDRESS.matcher(source);
@@ -394,5 +401,20 @@ public class DataService {
             }
 
         }).toList();
+    }
+
+    public void mergeVertices(final HashSet<Set<Person>> cluster) {
+        logger.info("Merge {} clusters", cluster.size());
+        for (final Set<Person> people : cluster) {
+            final var session = driver.session();
+            final var ids = people.stream().map(person -> person.id).toList();
+            logger.debug("Merge cluster of size {}", people.size());
+
+            session.writeTransaction(transaction -> transaction.run("MATCH (n) " +
+                    "WHERE ID(n) in $ids " +
+                    "WITH COLLECT(n) AS ns " +
+                    "CALL apoc.refactor.mergeNodes(ns) YIELD node " +
+                    "RETURN node", Map.of("ids", ids)));
+        }
     }
 }
