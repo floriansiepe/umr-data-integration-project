@@ -28,6 +28,7 @@ public class DataService {
     private static final Pattern ADDRESS = Pattern.compile("\\(([a-zA-Z\\d,\\s-\\.]+)\\)");
     private static final Logger logger = LoggerFactory.getLogger(DataService.class);
     private static final Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(false));
+    private static final List<String> EDGE_TYPES = List.of("IsManager", "Finances", "MemberOf", "Locates");
 
 
     //@RestClient
@@ -48,6 +49,11 @@ public class DataService {
     public List<Person> getPersons() {
         final var session = driver.session();
         return session.readTransaction(transaction -> transaction.run("MATCH (person:Person) RETURN person").stream().map(record -> Person.of(record.get("person").asNode())).toList());
+    }
+
+    public List<Address> getAddresses() {
+        final var session = driver.session();
+        return session.readTransaction(transaction -> transaction.run("MATCH (address:Address) RETURN address").stream().map(record -> Address.of(record.get("address").asNode())).toList());
     }
 
     public Organisation persistOrganisation(Organisation org) {
@@ -183,16 +189,12 @@ public class DataService {
         });
     }
 
-    public void createDb() {
-
-    }
-
     public void insertLobbyRegisterData(final List<LobbyRegisterDetailResponse> lobbyRegisterData) {
         int counter = 0;
         for (final var details : lobbyRegisterData) {
             //TODO: Just for development purpose
-            if (counter >= 100) {
-                //break;
+            if (counter >= 400) {
+                break;
             }
             counter++;
 
@@ -400,5 +402,22 @@ public class DataService {
                     "CALL apoc.refactor.mergeNodes(ns) YIELD node " +
                     "RETURN node", Map.of("ids", ids)));
         }
+    }
+
+    public void mergeEdges() {
+        logger.info("Merge duplicate edges");
+
+        for (final String edgeType : EDGE_TYPES) {
+            final var session = driver.session();
+            session.writeTransaction(transaction -> transaction.run(
+                    "MATCH (A)-[r:" + edgeType + "]->(B)\n" +
+                            "WITH count(r) as relsCount\n" +
+                            "WHERE relsCount > 1 \n" +
+                            "MATCH (A)-[r:" + edgeType + "]->(B)\n" +
+                            "WITH A,B,collect(r) as rels\n" +
+                            "CALL apoc.refactor.mergeRelationships(rels,{properties:\"combine\"})\n" +
+                            "YIELD rel RETURN rel"));
+        }
+
     }
 }

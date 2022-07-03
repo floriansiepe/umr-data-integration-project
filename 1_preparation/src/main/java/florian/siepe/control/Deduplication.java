@@ -25,6 +25,12 @@ public class Deduplication {
     public void deduplicate() {
         deduplicatePersons();
         deduplicateOrganisations();
+        deduplicateAddresses();
+        dataService.mergeEdges();
+    }
+
+    public void deduplicateAddresses() {
+        deduplicateEntity(dataService::getAddresses, address -> String.format("%s%s%s%s%s", address.country, address.zip, address.city, address.street, address.houseNumber), dataService::mergeVertices);
     }
 
     public void deduplicatePersons() {
