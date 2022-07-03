@@ -194,7 +194,7 @@ public class DataService {
         for (final var details : lobbyRegisterData) {
             //TODO: Just for development purpose
             if (counter >= 400) {
-                break;
+                //break;
             }
             counter++;
 
